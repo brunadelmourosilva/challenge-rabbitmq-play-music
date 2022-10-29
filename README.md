@@ -10,8 +10,10 @@
 :arrow_right:: queues | radio station
 
 The queues will simulation radio stations and besides that, each radio station will play the song of according the routing key defined by exchange.
-  * rock-song-over-2010
-  * rock-song-betwween-1970-1998
+
+**** define routing key pattern.
+  * rock-song-limit-2010
+  * rock-song-between-1970-1998
   * rock-song-guns-n-roses
   * pop-song
   * indie-song
