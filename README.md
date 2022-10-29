@@ -11,10 +11,10 @@
 
 The queues will simulation radio stations and besides that, each radio station will play the song of according the routing key defined by exchange.
 
-  * rock-song-between-2000-2020
-  * rock-song-between-1970-1998
-  * pop-song
-  * indie-song
+  * rock-song -> can be national or international
+  * rock-song-international
+  * pop-song-international
+  * indie-song-international
   
 :arrow_right: exchange type
 
@@ -23,7 +23,7 @@ The queues will simulation radio stations and besides that, each radio station w
   
 :arrow_right: define routing key pattern
 
- * genre.startDate.endDate
+ * genre.nationality
 
 ---
 
@@ -38,4 +38,4 @@ filas que podem receber mais de uma mensagem:
 
 -> exemplo fila recebe só rock acima de 1990 e outra fila recebe rocks, idendendenemente do ano
 
--> dead letter: recebe mensagens que não dão match com nenhuma mensagem recebida
+ideia futura: adicionar datas, pois atualmente é complexa a ideia entre envio para as filas, visto que, haveria duplicação da mensagem caso ela entrasse em duas filas, uma que recebe entre x data e outra que recebe em x data igual. As routings keys seriam diferentes para mesma mensagem.
