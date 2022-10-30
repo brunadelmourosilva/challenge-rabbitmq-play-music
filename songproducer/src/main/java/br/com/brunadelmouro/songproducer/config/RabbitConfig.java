@@ -46,14 +46,10 @@ public class RabbitConfig {
         return connectionFactory;
     }
 
-//    @Bean
-//    public AmqpTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
-//        final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-//        rabbitTemplate.setDefaultReceiveQueue(queues);
-//        rabbitTemplate.setReplyAddress(queue().getName());
-//        rabbitTemplate.setUseDirectReplyToContainer(false);
-//        return rabbitTemplate;
-//    }
+    @Bean
+    public AmqpTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
+        return new RabbitTemplate(connectionFactory);
+    }
 
     @Bean
     public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory() {
