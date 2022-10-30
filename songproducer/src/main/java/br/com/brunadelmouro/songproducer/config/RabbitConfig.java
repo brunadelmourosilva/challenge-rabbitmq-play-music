@@ -26,6 +26,8 @@ public class RabbitConfig {
     private String host;
     @Value("#{'${queues.play-music.queues}'.split(',')}")
     private String[] queues;
+    @Value("#{'${queues.play-music.routing-keys}'.split(',')}")
+    private String[] routingKeys;
     @Value("${queues.play-music.exchange}")
     private String exchange;
 
@@ -33,27 +35,6 @@ public class RabbitConfig {
     TopicExchange exchange() {
         return new TopicExchange(exchange);
     }
-
-    /* pattern: genre.nationality */
-//    @Bean
-//    Binding binding1() {
-//        return BindingBuilder.bind(queue1()).to(exchange()).with("rock.*");
-//    }
-//
-//    @Bean
-//    Binding binding2() {
-//        return BindingBuilder.bind(queue2()).to(exchange()).with("rock.international");
-//    }
-//
-//    @Bean
-//    Binding binding3() {
-//        return BindingBuilder.bind(queue3()).to(exchange()).with("pop.international");
-//    }
-//
-//    @Bean
-//    Binding binding4() {
-//        return BindingBuilder.bind(queue4()).to(exchange()).with("indie.international");
-//    }
 
     @Bean
     public ConnectionFactory connectionFactory() {
@@ -86,20 +67,17 @@ public class RabbitConfig {
     public AmqpAdmin amqpAdmin() {
         AmqpAdmin declare = new RabbitAdmin(connectionFactory());
 
-        /* declare queues */
-        for (int i = 0; i < queues.length; i++) {
-            declare.declareQueue(new Queue(queues[i], true));
-        }
-
         /* declare exchange */
         declare.declareExchange(exchange());
 
-        //PAREI AQUI - TERMINAR BINDING
-        /* declare bindings */
-//         declare.declareBinding(binding1());
-//        declare.declareBinding(binding2());
-//        declare.declareBinding(binding3());
-//        declare.declareBinding(binding4());
+        /* declare queues and declare bindings */
+        for (int i = 0; i < queues.length; i++) {
+            var queue = new Queue(queues[i], true);
+
+            declare.declareQueue(queue);
+
+            declare.declareBinding(BindingBuilder.bind(queue).to(exchange()).with(routingKeys[i]));
+        }
 
         return declare;
     }

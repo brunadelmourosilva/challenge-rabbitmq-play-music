@@ -8,5 +8,6 @@ rabbitmq:
 queues:
   play-music:
     queues: rock-song,rock-song-international,pop-song-international,indie-song-international
+    routing-keys: rock.*,rock.international,pop.international,indie.international
     exchange: play-music-topic
     exchange-error: play-music-topic-dead-letter
