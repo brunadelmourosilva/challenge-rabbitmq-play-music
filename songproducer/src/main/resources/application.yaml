@@ -1,0 +1,12 @@
+rabbitmq:
+  connection:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+queues:
+  play-music:
+    queues: rock-song,rock-song-international,pop-song-international,indie-song-international
+    exchange: play-music-topic
+    exchange-error: play-music-topic-dead-letter
