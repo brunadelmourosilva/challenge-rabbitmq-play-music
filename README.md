@@ -29,10 +29,7 @@ The queues will simulation radio stations and besides that, each radio station w
 
 ![image](https://user-images.githubusercontent.com/61791877/198846298-7aa33718-0556-40e7-b415-f180e8228a89.png)
 
-ideias
-criar varias filas para cada tipo de música, rock, pop... -> exchange topic
-
-routing keys para genero.ano
+---
 
 filas que podem receber mais de uma mensagem:
 
