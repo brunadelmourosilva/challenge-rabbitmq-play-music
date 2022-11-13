@@ -21,13 +21,9 @@ public class SongRequestController {
     }
 
     @PostMapping
-    public ResponseEntity<SongRequest> createSongRequest(@RequestBody SongRequest songRequest) throws JsonProcessingException {
-
-        //todo implementar as exceptions
+    public ResponseEntity<SongRequest> createSongRequest(@RequestBody SongRequest songRequest) {
         songRequest = songRequestService.createSongRequest(songRequest);
 
         return new ResponseEntity<>(songRequest, HttpStatus.CREATED);
     }
-
-    //todo cancel request
 }

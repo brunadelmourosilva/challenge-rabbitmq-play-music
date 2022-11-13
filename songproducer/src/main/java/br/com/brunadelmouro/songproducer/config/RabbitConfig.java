@@ -31,9 +31,26 @@ public class RabbitConfig {
     @Value("${queues.play-music.exchange}")
     private String exchange;
 
+    @Value("${queues.play-music.exchange-error}")
+    private String exchangeError;
+
     @Bean
     TopicExchange exchange() {
         return new TopicExchange(exchange);
+    }
+    @Bean
+    TopicExchange exchangeError() {
+        return new TopicExchange(exchangeError);
+    }
+
+    @Bean
+    Queue dlq() {
+        return QueueBuilder.durable("dlq-song-request").build();
+    }
+
+    @Bean
+    Binding dlqBinding() {
+        return BindingBuilder.bind(dlq()).to(exchangeError()).with("deadLetter");
     }
 
     @Bean
@@ -52,14 +69,6 @@ public class RabbitConfig {
     }
 
     @Bean
-    public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory() {
-        final SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
-        factory.setConnectionFactory(connectionFactory());
-
-        return factory;
-    }
-
-    @Bean
     public AmqpAdmin amqpAdmin() {
         AmqpAdmin declare = new RabbitAdmin(connectionFactory());
 
@@ -68,7 +77,9 @@ public class RabbitConfig {
 
         /* declare queues and declare bindings */
         for (int i = 0; i < queues.length; i++) {
-            var queue = new Queue(queues[i], true);
+            //todo finish dead letter exchange
+            var queue = QueueBuilder.durable(queues[i]).withArgument("x-dead-letter-exchange", exchangeError)
+                    .withArgument("x-dead-letter-routing-key", "deadLetter").build();
 
             declare.declareQueue(queue);
 

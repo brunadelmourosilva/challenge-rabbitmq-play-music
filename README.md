@@ -36,6 +36,6 @@ routing keys para genero.ano
 
 filas que podem receber mais de uma mensagem:
 
--> exemplo fila recebe só rock acima de 1990 e outra fila recebe rocks, idendendenemente do ano
+-> exemplo fila recebe só rock acima de 1990 e outra fila recebe rocks, independentemente do ano
 
 ideia futura: adicionar datas, pois atualmente é complexa a ideia entre envio para as filas, visto que, haveria duplicação da mensagem caso ela entrasse em duas filas, uma que recebe entre x data e outra que recebe em x data igual. As routings keys seriam diferentes para mesma mensagem.

@@ -1,5 +1,15 @@
 package br.com.brunadelmouro.songproducer.models.enums;
 
 public enum Genre {
-    ROCK, POP, INDIE
+    ROCK("rock"), POP("pop"), INDIE("indie"), ANY("");
+
+    private String genre;
+
+    Genre(final String genre) {
+        this.genre = genre;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
 }

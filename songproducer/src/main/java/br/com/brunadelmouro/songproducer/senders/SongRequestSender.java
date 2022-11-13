@@ -1,60 +1,56 @@
 package br.com.brunadelmouro.songproducer.senders;
 
 import br.com.brunadelmouro.songproducer.models.SongRequest;
-import br.com.brunadelmouro.songproducer.models.enums.Genre;
-import br.com.brunadelmouro.songproducer.models.enums.Nationality;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
+@Log4j2
 public class SongRequestSender {
 
     @Value("${queues.play-music.exchange}")
     private String exchange;
 
-    private AmqpTemplate amqpTemplate;
+    private final AmqpTemplate amqpTemplate;
 
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
     public SongRequestSender(final AmqpTemplate amqpTemplate, final ObjectMapper objectMapper) {
         this.amqpTemplate = amqpTemplate;
         this.objectMapper = objectMapper;
     }
 
-    public void publishMessage(SongRequest songRequest) throws JsonProcessingException {
+    public void publishMessage(SongRequest songRequest) {
         var routingKey = buildRoutingKey(songRequest);
         var message = convertObjectToJson(songRequest);
 
         amqpTemplate.convertAndSend(exchange, routingKey, message);
 
-        //todo add logs depois que mensagem for postada
-        //todo ver sobre MessagePostProcessor
+        log.info("Message sent to queue...");
     }
 
-    private String convertObjectToJson(SongRequest songRequest) throws JsonProcessingException {
-        return objectMapper.writeValueAsString(songRequest);
+    private String convertObjectToJson(SongRequest songRequest)  {
+        var message = "";
+        try {
+            message = objectMapper.writeValueAsString(songRequest);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return message;
     }
 
     private String buildRoutingKey(SongRequest songRequest) {
 
-        if (songRequest.getBand().getGenre().equals(Genre.ROCK) &&
-                songRequest.getBand().getNationality().equals(Nationality.INTERNATIONAL)) {
-            return "rock.international";
-        }
+        var stringBuilder = new StringBuilder();
+        stringBuilder
+                .append(songRequest.getBand().getBandGenre().getGenre())
+                .append(".")
+                .append(songRequest.getBand().getBandNationality().getNationality());
 
-        if (songRequest.getBand().getGenre().equals(Genre.POP) &&
-                songRequest.getBand().getNationality().equals(Nationality.INTERNATIONAL)) {
-            return "pop.international";
-        }
-
-        if (songRequest.getBand().getGenre().equals(Genre.INDIE) &&
-                songRequest.getBand().getNationality().equals(Nationality.INTERNATIONAL)) {
-            return "indie.international";
-        }
-
-        return "";
+        return stringBuilder.toString();
     }
 }

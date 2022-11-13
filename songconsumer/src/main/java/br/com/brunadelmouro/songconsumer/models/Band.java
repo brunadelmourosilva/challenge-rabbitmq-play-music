@@ -1,11 +1,9 @@
-package br.com.brunadelmouro.songproducer.models;
+package br.com.brunadelmouro.songconsumer.models;
 
-import br.com.brunadelmouro.songproducer.models.enums.Genre;
-import br.com.brunadelmouro.songproducer.models.enums.Nationality;
+import br.com.brunadelmouro.songconsumer.models.enums.Genre;
+import br.com.brunadelmouro.songconsumer.models.enums.Nationality;
 
-import java.io.Serializable;
-
-public class Band implements Serializable {
+public class Band {
 
     private String name;
     private Genre bandGenre;
@@ -48,8 +46,8 @@ public class Band implements Serializable {
     public String toString() {
         return "Band{" +
                 "name='" + name + '\'' +
-                ", genre=" + bandGenre +
-                ", nationality=" + bandNationality +
+                ", genre='" + bandGenre + '\'' +
+                ", nationality='" + bandNationality + '\'' +
                 '}';
     }
 }
