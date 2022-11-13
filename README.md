@@ -1,5 +1,9 @@
 # challenge-rabbitmq-play-music
 
+---
+### Status: in progress :warning:
+---
+
 ## Initial steps
 
 :arrow_right: create 3 microservices
