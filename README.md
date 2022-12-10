@@ -2,6 +2,7 @@
 
 ---
 ### Status: in progress :warning:
+CRIAR 4 MICROSERVICES, UM PARA CADA RÁDIO
 ---
 
 ## Initial steps
