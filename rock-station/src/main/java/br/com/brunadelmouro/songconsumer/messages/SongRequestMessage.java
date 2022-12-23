@@ -43,10 +43,7 @@ public class SongRequestMessage {
 
     @Override
     public String toString() {
-        return "SongRequestMessage{" +
-                "musicName='" + musicName + '\'' +
-                ", releaseYear=" + releaseYear +
-                ", band=" + band +
-                '}';
+
+        return "SongRequestMessage{" + "musicName='" + musicName + '\'' + ", releaseYear=" + releaseYear + ", band=" + band + '}';
     }
 }

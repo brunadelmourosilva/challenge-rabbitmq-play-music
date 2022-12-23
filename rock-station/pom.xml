@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.com.brunadelmouro</groupId>
-	<artifactId>songconsumer</artifactId>
+	<artifactId>station-rock</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>songconsumer</name>
 	<description>Microservice for consumer a song and play it.</description>

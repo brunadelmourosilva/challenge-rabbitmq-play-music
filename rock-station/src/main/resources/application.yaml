@@ -16,7 +16,5 @@ rabbitmq:
         max-interval: 10s
         multiplier: 2
 
-queues:
-  play-music:
-    queues: rock-song,rock-song-international,pop-song-international,indie-song-international,
+queues: rock-song
 
