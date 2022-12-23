@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8082
 
 rabbitmq:
   connection:
@@ -16,4 +16,4 @@ rabbitmq:
         max-interval: 10s
         multiplier: 2
 
-queues: rock-song
+queues: pop-song-international
