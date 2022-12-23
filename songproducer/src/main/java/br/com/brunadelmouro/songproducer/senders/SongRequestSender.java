@@ -14,11 +14,11 @@ public class SongRequestSender {
     @Value("${queues.play-music.exchange}")
     private String exchange;
 
-    private final AmqpTemplate amqpTemplate;
+    private  AmqpTemplate amqpTemplate;
 
-    private final ObjectMapper objectMapper;
+    private  ObjectMapper objectMapper;
 
-    public SongRequestSender(final AmqpTemplate amqpTemplate, final ObjectMapper objectMapper) {
+    public SongRequestSender( AmqpTemplate amqpTemplate,  ObjectMapper objectMapper) {
         this.amqpTemplate = amqpTemplate;
         this.objectMapper = objectMapper;
     }
@@ -44,7 +44,6 @@ public class SongRequestSender {
     }
 
     private String buildRoutingKey(SongRequest songRequest) {
-
         var stringBuilder = new StringBuilder();
         stringBuilder
                 .append(songRequest.getBand().getBandGenre().getGenre())

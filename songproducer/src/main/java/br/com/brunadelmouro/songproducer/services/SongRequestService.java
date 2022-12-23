@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class SongRequestService {
 
-    private final SongRequestSender songRequestSender;
+    private SongRequestSender songRequestSender;
 
-    public SongRequestService(final SongRequestSender songRequestSender) {
+    public SongRequestService(SongRequestSender songRequestSender) {
         this.songRequestSender = songRequestSender;
     }
 
-    public SongRequest createSongRequest(final SongRequest songRequest) {
+    public SongRequest createSongRequest(SongRequest songRequest) {
         songRequestSender.publishMessage(songRequest);
 
         return songRequest;

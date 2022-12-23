@@ -16,7 +16,7 @@ public class SongRequestController {
 
     private SongRequestService songRequestService;
 
-    public SongRequestController(final SongRequestService songRequestService) {
+    public SongRequestController(SongRequestService songRequestService) {
         this.songRequestService = songRequestService;
     }
 

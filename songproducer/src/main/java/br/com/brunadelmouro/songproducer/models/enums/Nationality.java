@@ -5,7 +5,7 @@ public enum Nationality {
 
     private String nationality;
 
-    Nationality(final String nationality) {
+    Nationality(String nationality) {
         this.nationality = nationality;
     }
 

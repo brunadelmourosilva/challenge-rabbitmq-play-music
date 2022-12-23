@@ -6,12 +6,12 @@ public class SongRequest implements Serializable {
 
     private String musicName;
     private Integer releaseYear;
-    private Band band;
+    private BandRequest band;
 
     public SongRequest() {
     }
 
-    public SongRequest(final String musicName, final Integer releaseYear, final Band band) {
+    public SongRequest( String musicName,  Integer releaseYear,  BandRequest band) {
         this.musicName = musicName;
         this.releaseYear = releaseYear;
         this.band = band;
@@ -21,7 +21,7 @@ public class SongRequest implements Serializable {
         return musicName;
     }
 
-    public void setMusicName(final String musicName) {
+    public void setMusicName( String musicName) {
         this.musicName = musicName;
     }
 
@@ -29,16 +29,16 @@ public class SongRequest implements Serializable {
         return releaseYear;
     }
 
-    public void setReleaseYear(final Integer releaseYear) {
+    public void setReleaseYear( Integer releaseYear) {
         this.releaseYear = releaseYear;
     }
 
-    public Band getBand() {
+    public BandRequest getBand() {
         return band;
     }
 
-    public void setBand(final Band band) {
-        this.band = band;
+    public void setBand( BandRequest bandRequest) {
+        this.band = bandRequest;
     }
 
     @Override
@@ -46,7 +46,7 @@ public class SongRequest implements Serializable {
         return "SongRequest{" +
                 "musicName='" + musicName + '\'' +
                 ", releaseYear=" + releaseYear +
-                ", band=" + band +
+                ", bandRequest=" + band +
                 '}';
     }
 }
