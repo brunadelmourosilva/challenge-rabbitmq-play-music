@@ -20,15 +20,6 @@ import org.springframework.context.annotation.Configuration;
 @EnableRabbit
 public class RabbitMQConfig {
 
-    @Value("${spring.rabbitmq.connection.username}")
-    private String username;
-
-    @Value("${spring.rabbitmq.connection.password}")
-    private String password;
-
-    @Value("${spring.rabbitmq.connection.host}")
-    private String host;
-
     @Value("${play-music.exchange}")
     private String exchange;
 

@@ -15,13 +15,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Component
 public class SongRequestListener {
 
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
     public SongRequestListener(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
     }
 
-    @RabbitListener(queues = "#{'${queues}'}")
+    @RabbitListener(queues = "#{'${play-music.queues}'}")
     public void receiveMessage( Message message) throws IOException {
          var songMessage = objectMapper.readValue(message.getBody(), SongRequestMessage.class);
 
@@ -40,7 +40,7 @@ public class SongRequestListener {
             throw new AmqpRejectAndDontRequeueException("Band genre not accepted.");
         }
 
-        if(Nationality.NATIONAL.equals(songMessage.getBand().getBandGenre())) {
+        if(!Nationality.INTERNATIONAL.equals(songMessage.getBand().getBandNationality())) {
             throw new AmqpRejectAndDontRequeueException("Nationality not accepted for this station.");
         }
     }

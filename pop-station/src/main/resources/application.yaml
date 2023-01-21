@@ -1,19 +1,21 @@
 server:
   port: 8082
 
-rabbitmq:
-  connection:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
-  listener:
-    simple:
-      retry:
-        enabled: true
-        initial-interval: 3s
-        max-attempts: 6
-        max-interval: 10s
-        multiplier: 2
+spring:
+  rabbitmq:
+    listener:
+      simple:
+        retry:
+          enabled: true
+          initial-interval: 5000 #5 seconds
+          max-attempts: 3
+          max-interval: 5000 #5 seconds
+          multiplier: 1
 
-queues: pop-song-international
+play-music:
+  exchange: play-music-topic-ex
+  exchange-error: play-music-pop-dlx
+
+  queues: pop-song-international
+  queues-error: pop-song-international-dlq
+  routing-keys: pop.international
