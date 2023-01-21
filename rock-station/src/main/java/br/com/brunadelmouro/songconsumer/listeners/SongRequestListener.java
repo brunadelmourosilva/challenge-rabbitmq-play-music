@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Component
 public class SongRequestListener {
 
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
     public SongRequestListener(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
@@ -23,7 +23,6 @@ public class SongRequestListener {
     @RabbitListener(queues = "#{'${play-music.queues}'}")
     public void receiveMessage(Message message) throws IOException {
          var songMessage = objectMapper.readValue(message.getBody(), SongRequestMessage.class);
-//// TODO: 21/01/2023 revisar isso para funcionar retry 
         validateGenre(songMessage);
 
         playMusic(songMessage);
