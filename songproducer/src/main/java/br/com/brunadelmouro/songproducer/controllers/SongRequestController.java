@@ -1,14 +1,14 @@
 package br.com.brunadelmouro.songproducer.controllers;
 
-import br.com.brunadelmouro.songproducer.models.SongRequest;
-import br.com.brunadelmouro.songproducer.services.SongRequestService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import br.com.brunadelmouro.songproducer.models.SongRequest;
+import br.com.brunadelmouro.songproducer.services.SongRequestService;
 
 @RestController
 @RequestMapping("/song-request")

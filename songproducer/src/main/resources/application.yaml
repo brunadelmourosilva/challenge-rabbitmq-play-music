@@ -8,9 +8,13 @@ rabbitmq:
     username: guest
     password: guest
 
-queues:
-  play-music:
-    queues: rock-song,pop-song-international
-    routing-keys: rock.*,pop.international
-    exchange: play-music-topic
-    exchange-error: play-music-topic-dead-letter
+play-music:
+  exchange: play-music-topic-ex
+
+#Way to create all the queues just one producer
+#queues:
+#  play-music:
+#    queues: rock-song,pop-song-international
+#    routing-keys: rock.*,pop.international
+#    exchange: play-music-topic
+#    exchange-error: play-music-topic-dead-letter

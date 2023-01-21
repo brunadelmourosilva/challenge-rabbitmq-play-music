@@ -20,10 +20,10 @@ public class SongRequestListener {
         this.objectMapper = objectMapper;
     }
 
-    @RabbitListener(queues = "#{'${queues}'}")
-    public void receiveMessage( Message message) throws IOException {
+    @RabbitListener(queues = "#{'${play-music.queues}'}")
+    public void receiveMessage(Message message) throws IOException {
          var songMessage = objectMapper.readValue(message.getBody(), SongRequestMessage.class);
-
+//// TODO: 21/01/2023 revisar isso para funcionar retry 
         validateGenre(songMessage);
 
         playMusic(songMessage);

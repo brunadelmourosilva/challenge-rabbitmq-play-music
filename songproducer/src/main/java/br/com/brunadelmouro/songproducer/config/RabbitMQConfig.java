@@ -16,37 +16,24 @@ public class RabbitMQConfig {
 
     @Value("${rabbitmq.connection.username}")
     private String username;
+
     @Value("${rabbitmq.connection.password}")
     private String password;
+
     @Value("${rabbitmq.connection.host}")
     private String host;
-    @Value("#{'${queues.play-music.queues}'.split(',')}")
-    private String[] queues;
-    @Value("#{'${queues.play-music.routing-keys}'.split(',')}")
-    private String[] routingKeys;
-    @Value("${queues.play-music.exchange}")
+
+    @Value("${play-music.exchange}")
     private String exchange;
 
-    @Value("${queues.play-music.exchange-error}")
-    private String exchangeError;
+//    @Value("#{'${queues.play-music.queues}'.split(',')}")
+//    private String[] queues;
+//    @Value("#{'${queues.play-music.routing-keys}'.split(',')}")
+//    private String[] routingKeys;
 
     @Bean
-    TopicExchange exchange() {
+    public TopicExchange topicExchange() {
         return new TopicExchange(exchange);
-    }
-    @Bean
-    TopicExchange exchangeError() {
-        return new TopicExchange(exchangeError);
-    }
-
-    @Bean
-    Queue dlq() {
-        return QueueBuilder.durable("dlq-song-request").build();
-    }
-
-    @Bean
-    Binding dlqBinding() {
-        return BindingBuilder.bind(dlq()).to(exchangeError()).with("deadLetter");
     }
 
     @Bean
@@ -63,25 +50,26 @@ public class RabbitMQConfig {
     public AmqpTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
         return new RabbitTemplate(connectionFactory);
     }
-
-    @Bean
-    public AmqpAdmin amqpAdmin() {
-        AmqpAdmin declare = new RabbitAdmin(connectionFactory());
-
-        /* declare exchange */
-        declare.declareExchange(exchange());
-
-        /* declare queues and declare bindings */
-        for (int i = 0; i < queues.length; i++) {
-            //todo finish dead letter exchange
-            var queue = QueueBuilder.durable(queues[i]).withArgument("x-dead-letter-exchange", exchangeError)
-                    .withArgument("x-dead-letter-routing-key", "deadLetter").build();
-
-            declare.declareQueue(queue);
-
-            declare.declareBinding(BindingBuilder.bind(queue).to(exchange()).with(routingKeys[i]));
-        }
-
-        return declare;
-    }
 }
+
+/* Way to create all the queues just one producer */
+//    @Bean
+//    public AmqpAdmin amqpAdmin() {
+//        AmqpAdmin declare = new RabbitAdmin(connectionFactory());
+//
+//        /* declare exchange */
+//        declare.declareExchange(exchange());
+//
+//        /* declare queues and declare bindings */
+//        for (int i = 0; i < queues.length; i++) {
+//            //todo finish dead letter exchange
+//            var queue = QueueBuilder.durable(queues[i]).withArgument("x-dead-letter-exchange", exchangeError)
+//                    .withArgument("x-dead-letter-routing-key", "deadLetter").build();
+//
+//            declare.declareQueue(queue);
+//
+//            declare.declareBinding(BindingBuilder.bind(queue).to(exchange()).with(routingKeys[i]));
+//        }
+//
+//        return declare;
+//    }

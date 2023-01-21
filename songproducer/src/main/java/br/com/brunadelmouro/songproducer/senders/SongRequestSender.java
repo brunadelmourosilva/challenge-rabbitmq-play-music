@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Log4j2
 public class SongRequestSender {
 
-    @Value("${queues.play-music.exchange}")
+    @Value("${play-music.exchange}")
     private String exchange;
 
     private  AmqpTemplate amqpTemplate;
